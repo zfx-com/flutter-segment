@@ -597,3 +597,4 @@ example/android/.project
 example/ios/Podfile.lock
 example/pubspec.lock
 example/pubspec.lock
+example/ios/Podfile.lock
