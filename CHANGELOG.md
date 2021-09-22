@@ -1,3 +1,8 @@
+## 4.0.0
+update library
+ios target 10
+remove screen from ios(SEGScreenPayload)
+
 ## 3.1.2
 * Android: allow nested properties for event properties (with Null Safety)
 

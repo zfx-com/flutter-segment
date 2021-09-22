@@ -2,7 +2,7 @@
 #import <Analytics/SEGAnalytics.h>
 #import <Analytics/SEGContext.h>
 #import <Analytics/SEGMiddleware.h>
-#import <Segment_Amplitude/SEGAmplitudeIntegrationFactory.h>
+#import <Segment-Amplitude/SEGAmplitudeIntegrationFactory.h>
 
 @implementation FlutterSegmentPlugin
 // Contents to be appended to the context
@@ -65,13 +65,6 @@ static NSDictionary *_appendToContextMiddleware;
                 properties: ((SEGTrackPayload*)ctx.payload).properties
                 context: combinedContext
                 integrations: ((SEGTrackPayload*)ctx.payload).integrations
-              ];
-            } else if ([ctx.payload isKindOfClass:[SEGScreenPayload class]]) {
-              ctx.payload = [[SEGScreenPayload alloc]
-                initWithName: ((SEGScreenPayload*)ctx.payload).name
-                properties: ((SEGScreenPayload*)ctx.payload).properties
-                context: combinedContext
-                integrations: ((SEGScreenPayload*)ctx.payload).integrations
               ];
             } else if ([ctx.payload isKindOfClass:[SEGGroupPayload class]]) {
               ctx.payload = [[SEGGroupPayload alloc]

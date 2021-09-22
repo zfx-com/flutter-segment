@@ -590,3 +590,10 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/git,dart,flutter,intellij,webstorm,visualstudio
+android/.settings/org.eclipse.buildship.core.prefs
+android/.project
+example/android/.settings/org.eclipse.buildship.core.prefs
+example/android/.project
+example/ios/Podfile.lock
+example/pubspec.lock
+example/pubspec.lock

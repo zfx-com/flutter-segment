@@ -15,9 +15,9 @@ A new flutter plugin project.
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'Analytics', '3.7.0'
-  s.dependency 'Segment-Amplitude', '3.0.1'
-  s.ios.deployment_target = '8.0'
+  s.dependency 'Analytics', '4.1.5'
+  s.dependency 'Segment-Amplitude', '3.2.4'
+  s.ios.deployment_target = '10.0'
 
 end
 
