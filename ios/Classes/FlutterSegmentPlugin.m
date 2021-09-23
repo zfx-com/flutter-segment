@@ -66,7 +66,16 @@ static NSDictionary *_appendToContextMiddleware;
                 context: combinedContext
                 integrations: ((SEGTrackPayload*)ctx.payload).integrations
               ];
-            } else if ([ctx.payload isKindOfClass:[SEGGroupPayload class]]) {
+            } 
+            //  else if ([ctx.payload isKindOfClass:[SEGScreenPayload class]]) {
+            //   ctx.payload = [[SEGScreenPayload alloc]
+            //     initWithName: ((SEGScreenPayload*)ctx.payload).name
+            //     properties: ((SEGScreenPayload*)ctx.payload).properties
+            //     context: combinedContext
+            //     integrations: ((SEGScreenPayload*)ctx.payload).integrations
+            //   ];
+            // }
+            else if ([ctx.payload isKindOfClass:[SEGGroupPayload class]]) {
               ctx.payload = [[SEGGroupPayload alloc]
                 initWithGroupId: ((SEGGroupPayload*)ctx.payload).groupId
                 traits: ((SEGGroupPayload*)ctx.payload).traits
