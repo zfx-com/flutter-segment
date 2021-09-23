@@ -3,9 +3,12 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_segment'
-  s.version          = '0.0.1'
+  s.version          = '4.0.0'
   s.summary          = 'A new flutter plugin project.'
+
+  s.requires_arc = true
   s.static_framework = true
+
   s.description      = <<-DESC
 A new flutter plugin project.
                        DESC
@@ -17,7 +20,7 @@ A new flutter plugin project.
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'Analytics', '4.1.5'
-  s.dependency 'Segment-Amplitude', '3.2.4'
+  s.dependency 'Segment-Amplitude', '3.3.1'
   s.ios.deployment_target = '10.0'
 
 end
