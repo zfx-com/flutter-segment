@@ -1,3 +1,6 @@
+## 4.1.0
+feat: added Firebase and appsflyer
+
 ## 4.0.0
 update library
 ios target 10

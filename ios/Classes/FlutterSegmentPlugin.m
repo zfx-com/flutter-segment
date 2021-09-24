@@ -3,6 +3,8 @@
 #import <Analytics/SEGContext.h>
 #import <Analytics/SEGMiddleware.h>
 #import <Segment-Amplitude/SEGAmplitudeIntegrationFactory.h>
+#import <Segment-Firebase/SEGFirebaseIntegrationFactory.h>
+#import "SEGAppsFlyerIntegrationFactory.h"
 
 @implementation FlutterSegmentPlugin
 // Contents to be appended to the context
@@ -10,11 +12,24 @@ static NSDictionary *_appendToContextMiddleware;
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   @try {
+    // if (@available(iOS 14.0, *))
+    // {
+    //     [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+    //     // Tracking authorization completed. Start loading ads here.
+    //     // [self loadAd];
+    //   }];
+    // }
     NSString *path = [[NSBundle mainBundle] pathForResource: @"Info" ofType: @"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
     NSString *writeKey = [dict objectForKey: @"com.claimsforce.segment.WRITE_KEY"];
     BOOL trackApplicationLifecycleEvents = [[dict objectForKey: @"com.claimsforce.segment.TRACK_APPLICATION_LIFECYCLE_EVENTS"] boolValue];
     BOOL isAmplitudeIntegrationEnabled = [[dict objectForKey: @"com.claimsforce.segment.ENABLE_AMPLITUDE_INTEGRATION"] boolValue];
+    BOOL isFirebaseIntegrationEnabled = [[dict objectForKey: @"com.claimsforce.segment.ENABLE_FIREBASE_INTEGRATION"] boolValue];
+    BOOL isAppsFlyerIntegrationEnabled = [[dict objectForKey: @"com.claimsforce.segment.ENABLE_APPSFLYER_INTEGRATION"] boolValue];
+    // NSLog(@"trackApplicationLifecycleEvents %@",trackApplicationLifecycleEvents);
+    // NSLog(@"isAmplitudeIntegrationEnabled %@",isAmplitudeIntegrationEnabled);
+    // NSLog(@"isFirebaseIntegrationEnabled %@",isFirebaseIntegrationEnabled);
+    // NSLog(@"isAppsFlyerIntegrationEnabled %@",isAppsFlyerIntegrationEnabled);
     SEGAnalyticsConfiguration *configuration = [SEGAnalyticsConfiguration configurationWithWriteKey:writeKey];
 
     // This middleware is responsible for manipulating only the context part of the request,
@@ -104,12 +119,24 @@ static NSDictionary *_appendToContextMiddleware;
     ];
 
     configuration.trackApplicationLifecycleEvents = trackApplicationLifecycleEvents;
-
     if (isAmplitudeIntegrationEnabled) {
       [configuration use:[SEGAmplitudeIntegrationFactory instance]];
     }
+    if (isFirebaseIntegrationEnabled) {
+      [configuration use:[SEGFirebaseIntegrationFactory instance]];
+    }
+    if (isAppsFlyerIntegrationEnabled) {
+    [configuration use:[SEGAppsFlyerIntegrationFactory instance]];
+    }
+      // use this if you want to get conversion data in the app. Read more in the integration guide
+    
+    configuration.enableAdvertisingTracking = YES;       //OPTIONAL
+    // configuration.trackDeepLinks = YES;                  //OPTIONAL
+    // configuration.trackPushNotifications = YES;          //OPTIONAL
+    // [SEGAnalytics debug:YES];                     //OPTIONAL
 
     [SEGAnalytics setupWithConfiguration:configuration];
+
     FlutterMethodChannel* channel = [FlutterMethodChannel
       methodChannelWithName:@"flutter_segment"
       binaryMessenger:[registrar messenger]];

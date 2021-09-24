@@ -598,3 +598,7 @@ example/ios/Podfile.lock
 example/pubspec.lock
 example/pubspec.lock
 example/ios/Podfile.lock
+android/.classpath
+example/android/app/.settings/org.eclipse.buildship.core.prefs
+example/android/app/.classpath
+example/android/app/.project

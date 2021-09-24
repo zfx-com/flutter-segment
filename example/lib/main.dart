@@ -1,12 +1,22 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_segment/flutter_segment.dart';
 
-void main() {
+Future<void> main() async {
   /// Wait until the platform channel is properly initialized so we can call
   /// `setContext` during the app initialization.
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  final time = DateTime.now().toUtc().millisecondsSinceEpoch;
+  SegmentDefaultOptions.instance.options = {
+    'integrations': {
+      'Amplitude': {
+        'session_id': '$time',
+      },
+    }
+  };
 
   /// The `context.device.token` is a special property.
   /// When you define it, setting the context again with no token property (ex: `{}`)
@@ -46,16 +56,25 @@ class MyApp extends StatelessWidget {
             Spacer(),
             Center(
               child: FlatButton(
-                child: Text('TRACK ACTION WITH SEGMENT'),
+                child: Text('track WITH SEGMENT'),
                 onPressed: () {
                   Segment.track(
-                    eventName: 'ButtonClicked',
+                    eventName: 'test',
                     properties: {
-                      'foo': 'bar',
-                      'number': 1337,
-                      'clicked': true,
+                      'value': 'test_value',
+                      // 'number': 1337,
+                      // 'clicked': true,
                     },
                   );
+                },
+              ),
+            ),
+            Spacer(),
+            Center(
+              child: FlatButton(
+                child: Text('identify WITH SEGMENT'),
+                onPressed: () {
+                  Segment.identify(userId: '1', options: {}, traits: {});
                 },
               ),
             ),
