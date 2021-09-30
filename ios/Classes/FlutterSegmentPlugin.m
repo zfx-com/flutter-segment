@@ -126,7 +126,7 @@ static NSDictionary *_appendToContextMiddleware;
       [configuration use:[SEGFirebaseIntegrationFactory instance]];
     }
     if (isAppsFlyerIntegrationEnabled) {
-    [configuration use:[SEGAppsFlyerIntegrationFactory instance]];
+      [configuration use:[SEGAppsFlyerIntegrationFactory instance]];
     }
       // use this if you want to get conversion data in the app. Read more in the integration guide
     

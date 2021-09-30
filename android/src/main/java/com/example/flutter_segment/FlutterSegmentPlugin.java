@@ -91,6 +91,9 @@ public class FlutterSegmentPlugin implements MethodCallHandler, FlutterPlugin {
 
       if (isAppsFlyerIntegrationEnabled) {
         analyticsBuilder.use(AppsflyerIntegration.FACTORY);
+        analyticsBuilder.logLevel(Analytics.LogLevel.VERBOSE)
+                        .trackAttributionInformation() // Install Attributed event
+                        .trackApplicationLifecycleEvents();
       }
       
 
@@ -133,12 +136,12 @@ public class FlutterSegmentPlugin implements MethodCallHandler, FlutterPlugin {
       try {
         Analytics.setSingletonInstance(analyticsBuilder.build());
       } catch (IllegalStateException e) {
-        Log.w("FlutterSegment", e.getMessage());
+        Log.w("FlutterSegment setSingletonInstance error:", e.getMessage());
       }
       // register the channel to receive calls
       methodChannel.setMethodCallHandler(this);
     } catch (Exception e) {
-      Log.e("FlutterSegment", e.getMessage());
+      Log.e("FlutterSegment error:", e.getMessage());
     }
   }
 
